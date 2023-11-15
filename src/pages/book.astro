@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { type APIWiki } from '../types/api'
+
+const url = 'https://search-engine-api.p.rapidapi.com/SearchGateway/basic-search?q=Wikipedia%20BigBen&safeSearch=0&page=1';
+
+
+	const response = await fetch(url,{
+    method:'GET',
+    headers:{
+      'X-RapidAPI-Key': '3336cdc080msh7ca64b5a30fc12cp1f25e1jsndf75832458a4',
+		  'X-RapidAPI-Host': 'search-engine-api.p.rapidapi.com',
+      "Content-Type": "application/json",
+    },
+  })
+	const {results: documents} = await response.json() as APIWiki
+  const recorte = documents.slice(0, 10);
+  
+	
+---
+<Layout title='poke'>
+  <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 w-fit m-10">
+    {
+      recorte.map(docum=>(
+        <h2>{docum.title}</h2>
+          <p>{docum.content}</p>
+          <p>{docum.url}</p>
+          <p>{docum.score}</p>
+      )
+  
+      )
+    }
+  
+  </div>
+</Layout>

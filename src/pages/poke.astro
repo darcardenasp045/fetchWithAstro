@@ -1,0 +1,42 @@
+---
+import { type APIpokemonIncio } from "../types/api2";
+import { type APIpokemonDefinitivo } from "../types/api2";
+import Layout from "../layouts/Layout.astro";
+import CardPokemon from "./CardPokemon.astro";
+
+const data = await fetch("https://pokeapi.co/api/v2/pokemon/");
+const { results: lista } = (await data.json()) as APIpokemonIncio;
+
+
+
+export const resultsArray: APIpokemonDefinitivo[] = [];
+
+async function fetchPokemonData(url: any) {
+  const response = await fetch(url);
+  const data = await response.json();
+  resultsArray.push(data);
+}
+
+for (const pokemon of lista) {
+  await fetchPokemonData(pokemon.url);
+}
+
+
+---
+
+<Layout title="poke">
+  <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    {
+      resultsArray.map((poke) => (
+        <CardPokemon
+          id={poke.id}
+          name ={poke.name}
+          img={poke.sprites.other?.dream_world.front_default}
+          type={poke.types[0].type.name}
+        />
+          
+          
+     ))
+    }
+  </div>
+</Layout>

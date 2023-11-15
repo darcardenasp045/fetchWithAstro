@@ -1,0 +1,18 @@
+---
+import {type APINasa} from '../types/api.ts'
+import Layout from '../layouts/Layout.astro'
+
+const data = await fetch('https://api.nasa.gov/planetary/apod?api_key=MRlLyjy6mosC84NLIFP14F3XXBTwmy6aQcnv1q0A')
+const result = await data.json() as APINasa
+
+
+---
+<Layout title="nasa">   
+    <div>
+        {result.explanation}
+    </div>
+    <p>
+        <img src={result.url} alt="">
+    </p>
+
+</Layout>

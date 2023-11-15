@@ -1,0 +1,54 @@
+---
+interface Props{
+    id: number
+    name:string
+    img:any
+    type:string
+
+}
+
+const {id,name ,img, type} = Astro.props
+
+const tipoDePokemon = type? "grass": "fire";
+
+---
+
+<a href={`/poke/${id}`}
+    class="rounded-lg border shadow-md bg-gray-800 border-gray-700 hover:scale-105 hover:border-gray-500 transition flex flex-col"
+>
+    <picture class=" flex justify-center p-4">
+        <img class="mb-5 rounded-lg" src={img} alt={`Pokemon ${id}`}>
+    </picture>
+
+    <header class=" p4- flex-grow text-">
+        <span 
+            class:list={[
+            "text-xs font-semibold mr-2 px-2 py-0.5 rounded",
+            {   
+                
+                'bg-green-300 text-amber-800': type==="bug",
+                'bg-red-900  text-slate-900 ': type ==="fire",
+                'bg-green-300  text-red-900 ': type ==="grass",
+                "bg-gray-300 text-slate-900": type==="normal",
+                'bg-blue-300 text-slate-900': type ==="water"
+                
+            }
+
+            ]
+        }>
+            {type}
+        </span>
+
+        <h2 class="my-2 text-2xl font-bold tracking-tight text-white">
+            Pokemon numero {name}
+        </h2>
+        <p>
+            id del pokemon {id}
+        </p>
+        <p>
+            tipo de pokemon {type}
+        </p>
+        
+    </header>
+
+</a>
