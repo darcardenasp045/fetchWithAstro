@@ -6,6 +6,7 @@ import CardPokemon from "./CardPokemon.astro";
 
 const data = await fetch("https://pokeapi.co/api/v2/pokemon/");
 const { results: lista } = (await data.json()) as APIpokemonIncio;
+console.log(data)
 
 
 
@@ -20,6 +21,7 @@ async function fetchPokemonData(url: any) {
 for (const pokemon of lista) {
   await fetchPokemonData(pokemon.url);
 }
+console.log(resultsArray)
 
 
 ---
